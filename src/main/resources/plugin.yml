@@ -1,0 +1,9 @@
+name: WildBingo
+version: ${project.version}
+main: wildbingo.wildbingo.WildBingo
+api-version: 1.16
+authors: [ BlueRing1017 ]
+description: The bingo game in the wild
+commands:
+  wb:
+    description: "WildBingo plugin's basic command"
