@@ -1,5 +1,7 @@
 package wildbingo.wildbingo;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -90,6 +92,18 @@ public class EventManager implements Listener {
         }
         catch (NullPointerException e1){}
         catch (IndexOutOfBoundsException e2){Bukkit.broadcastMessage("ERROR2");}
+
+    }
+
+    @EventHandler
+    public void GeneralPlayerJoinEvent(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        TextComponent includeLink = new TextComponent(net.md_5.bungee.api.ChatColor.GOLD.toString()+ net.md_5.bungee.api.ChatColor.BOLD.toString()+ "리소스팩 링크"+ net.md_5.bungee.api.ChatColor.RESET.toString()+ " : http://bit.ly/3sXFQcJ");
+        includeLink.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://bit.ly/3sXFQcJ"));
+
+        player.sendMessage(ChatColor.GOLD.toString()+ ChatColor.BOLD.toString()+ "리소스팩이 없나요? 그렇다면 아래 링크에서 다운받아 주세요.");
+        player.sendMessage(ChatColor.YELLOW.toString()+ ChatColor.BOLD.toString()+ "/wb help" +ChatColor.RESET+ " 으로 게임 명령어를 확인하세요.");
+        player.spigot().sendMessage(includeLink);
 
     }
 

@@ -43,98 +43,102 @@ public class CommandManager implements CommandExecutor {
         if (args.length > 0) {
             if (command.getName().equalsIgnoreCase("wb")) {
                 if (args[0].equalsIgnoreCase("start")) {
-                    EventManager.clearPlayer.clear();
-                    ItemStack item = new MaterialData(Material.BOOK, (byte)0).toItemStack(1);
-                    ItemMeta im = item.getItemMeta();
-                    im.setDisplayName(ChatColor.GOLD+ "야생빙고");
-                    im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-                    im.setLore(Arrays.asList(ChatColor.GRAY+ "", ChatColor.YELLOW+ "빙고를 완성하세요!"));
-                    item.setItemMeta(im);
-                    allPlayer = (List<Player>) Bukkit.getServer().getOnlinePlayers();
+                    if (player.isOp()) {
+                        EventManager.clearPlayer.clear();
+                        ItemStack item = new MaterialData(Material.BOOK, (byte) 0).toItemStack(1);
+                        ItemMeta im = item.getItemMeta();
+                        im.setDisplayName(ChatColor.GOLD + "야생빙고");
+                        im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                        im.setLore(Arrays.asList(ChatColor.GRAY + "", ChatColor.YELLOW + "빙고를 완성하세요!"));
+                        item.setItemMeta(im);
+                        allPlayer = (List<Player>) Bukkit.getServer().getOnlinePlayers();
 
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            TextComponent includeLink = new TextComponent(ChatColor.RED.toString()+ ChatColor.BOLD.toString()+ "유튜브 링크"+ ChatColor.RESET.toString()+ " : https://www.youtube.com/c/딤딤");
-                            includeLink.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.youtube.com/c/딤딤"));
-                            Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE+ ChatColor.BOLD.toString()+ "기획" + ChatColor.RESET+ " : 딤퍼니 " );
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_CHAIN_PLACE, 1F, 1);
-                                allPlayer.get(i).spigot().sendMessage(includeLink);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                TextComponent includeLink = new TextComponent(ChatColor.RED.toString() + ChatColor.BOLD.toString() + "유튜브 링크" + ChatColor.RESET.toString() + " : https://www.youtube.com/c/딤딤");
+                                includeLink.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.youtube.com/c/딤딤"));
+
+                                Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + ChatColor.BOLD.toString() + "기획" + ChatColor.RESET + " : 딤퍼니 ");
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_CHAIN_PLACE, 1F, 1);
+                                    allPlayer.get(i).spigot().sendMessage(includeLink);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.BLUE + ChatColor.BOLD.toString() + "플러그인" + ChatColor.RESET + " : BlueRing1017 (블링)");
+                                Bukkit.getServer().broadcastMessage(ChatColor.of(new Color(161, 118, 100)).toString() + ChatColor.BOLD.toString() + "리소스팩" + ChatColor.RESET + " : MGM_Choco (미초)");
+
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.BLUE+ ChatColor.BOLD.toString()+ "플러그인" + ChatColor.RESET+ " : BlueRing1017 (블링)");
-                            Bukkit.getServer().broadcastMessage(ChatColor.of(new Color(161,118,100)).toString()+ ChatColor.BOLD.toString()+ "리소스팩"+ ChatColor.RESET+ " : MGM_Choco (미초)");
+                        }, 10);
 
-                        }
-                    }, 10);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, 1F, 1);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + Integer.toString(FileManager.getItemList().length) + " 개의 아이템 목록을 불러왔습니다.");
+                                Bukkit.getServer().broadcastMessage(ChatColor.RED + "현 버전은 네더라이트, 프리즈머린 등 난이도가 높은 아이템은 대체로 제외된 버전입니다.");
 
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, 1F, 1);
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW+ Integer.toString(FileManager.getItemList().length)+ " 개의 아이템 목록을 불러왔습니다.");
-                            Bukkit.getServer().broadcastMessage(ChatColor.RED+ "현 버전은 네더라이트, 프리즈머린 등 난이도가 높은 아이템은 대체로 제외된 버전입니다.");
+                        }, 40);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "3초뒤 시작됩니다.");
 
-                        }
-                    }, 40);
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW+ "3초뒤 시작됩니다.");
+                        }, 60);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "2초뒤 시작됩니다.");
 
-                        }
-                    }, 60);
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW+ "2초뒤 시작됩니다.");
+                        }, 80);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "1초뒤 시작됩니다.");
 
-                        }
-                    }, 80);
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2);
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.YELLOW+ "1초뒤 시작됩니다.");
+                        }, 100);
 
-                        }
-                    }, 100);
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1);
+                                }
+                                Bukkit.getServer().broadcastMessage(ChatColor.GOLD + ChatColor.BOLD.toString() + "게임이 시작되었습니다.");
 
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            for (int i = 0; i < allPlayer.size(); i++){
-                                allPlayer.get(i).playSound(allPlayer.get(i).getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1);
+                                for (int i = 0; i < allPlayer.size(); i++) {
+                                    Inventory inv = GuiManager.setNewBingo(allPlayer.get(i));
+                                    bingoBoard.add(inv);
+                                    allPlayer.get(i).getInventory().addItem(item);
+                                    bm.add(new BingoManager(allPlayer.get(i), inv));
+                                }
                             }
-                            Bukkit.getServer().broadcastMessage(ChatColor.GOLD+ ChatColor.BOLD.toString()+ "게임이 시작되었습니다.");
-
-                            for(int i = 0; i < allPlayer.size(); i++){
-                                Inventory inv = GuiManager.setNewBingo(allPlayer.get(i));
-                                bingoBoard.add(inv);
-                                allPlayer.get(i).getInventory().addItem(item);
-                                bm.add(new BingoManager(allPlayer.get(i), inv));
-                            }
-                        }
-                    },120);
+                        }, 120);
 
 
-
+                    }
                     return true;
                 }
                 else if (args[0].equalsIgnoreCase("reset")) {
+                    if (player.isOp()) {
 
-                    bingoBoard.clear();
-                    bm.clear();
+                        bingoBoard.clear();
+                        bm.clear();
+                    }
 
                     return true;
                 }
@@ -159,6 +163,16 @@ public class CommandManager implements CommandExecutor {
                     }catch (NullPointerException e){
                         System.out.println("error");
                     }
+
+                    return true;
+                }
+                else if (args[0].equalsIgnoreCase("help")) {
+
+                    player.sendMessage(ChatColor.GOLD+ "====================================");
+                    player.sendMessage(ChatColor.GOLD+ "/wb help" +ChatColor.RESET+ " : 야생빙고 게임의 기본 명령어 도움말을 불러옵니다.");
+                    player.sendMessage(ChatColor.GOLD+ "/wb start" +ChatColor.RESET+ " : 야생빙고 게임을 시작합니다.");
+                    player.sendMessage(ChatColor.GOLD+ "/wb reset" +ChatColor.RESET+ " : 야생빙고 게임을 강제종료 후 리셋합니다.");
+                    player.sendMessage(ChatColor.GOLD+ "====================================");
 
                     return true;
                 }
